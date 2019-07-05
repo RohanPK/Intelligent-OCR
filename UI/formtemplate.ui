@@ -32,6 +32,9 @@
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+    </property>
    </widget>
    <widget class="QPushButton" name="add_field_object">
     <property name="geometry">
@@ -56,11 +59,11 @@
      </rect>
     </property>
    </widget>
-   <widget class="QListView" name="listView">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
       <x>550</x>
-      <y>60</y>
+      <y>0</y>
       <width>251</width>
       <height>431</height>
      </rect>
@@ -87,7 +90,7 @@
    </widget>
    <widget class="QMenu" name="menuEdot">
     <property name="title">
-     <string>Edit</string>
+     <string>Run</string>
     </property>
    </widget>
    <addaction name="menuFIle"/>
