@@ -29,3 +29,7 @@ class Image_Painter(QtWidgets.QLabel):
 
 	def get_rect_position(self):
 		return (self.begin,self.end)
+
+	def reset_position(self):
+		self.begin = QtCore.QPoint(0,0)
+		self.end = QtCore.QPoint(0,0)

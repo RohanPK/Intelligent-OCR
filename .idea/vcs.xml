@@ -2,8 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CTCWordBeamSearch" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SimpleHTR" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SimpleHTR/CTCWordBeamSearch" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dependencies/SCTK" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dependencies/handwritten-text-recognition-for-apache-mxnet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dependencies/hnswlib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/handwritten-text-recognition-for-apache-mxnet" vcs="Git" />
   </component>
 </project>
