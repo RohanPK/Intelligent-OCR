@@ -3,11 +3,10 @@ from UI.painter import Image_Painter
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
-import sys
-import os
-import cv2
-import numpy as np
-import pickle
+import glob
+import sys,os,cv2,pickle
+from utils.load_image import *
+from predict.handwriting_line_recognition import *
 
 class HandWritingApp(QMainWindow, Ui_FormTemplate):
 	def __init__(self):
@@ -29,7 +28,7 @@ class HandWritingApp(QMainWindow, Ui_FormTemplate):
 		self.actionSaveTemplate.triggered.connect(self.save_template)
 		self.actionLoadTemplate.triggered.connect(self.load_template)
 
-		self.menuRun.triggered.connect(self.start_detection)
+		self.actionStart.triggered.connect(self.start_detection)
 
 
 		self.add_field_object.clicked.connect(self.add_new_field)
@@ -64,7 +63,7 @@ class HandWritingApp(QMainWindow, Ui_FormTemplate):
 		self.locations = []
 		self.field_type = []
 		self.tableWidget.setRowCount(0)
-		origin = QPoint(0,0)
+		origin = (0,0)
 		self.display_image = self.original_image.copy()
 		self.update_image(origin,origin)
 
@@ -75,7 +74,7 @@ class HandWritingApp(QMainWindow, Ui_FormTemplate):
 
 	def load_template(self):
 		self.new_template()
-		fname = QFileDialog.getOpenFileName(self, 'Open file',os.getcwd(),"Template files (*.pickle)")
+		fname = QFileDialog.getOpenFileName(self, 'Open file',os.getcwd()+"/templates","Template files (*.pickle)")
 		if fname[0] != "":
 			self.original_image,self.existing_fields,self.locations,self.field_type = pickle.load(open(fname[0],'rb'))
 			self.display_image = self.original_image.copy()
@@ -121,11 +120,7 @@ class HandWritingApp(QMainWindow, Ui_FormTemplate):
 	def update_image(self,top_left,bottom_right):
 		img = self.display_image
 
-		top_left = (top_left.x(),top_left.y())
-		bottom_right = (bottom_right.x(),bottom_right.y())
-
 		cv2.rectangle(img,top_left,bottom_right,(0,0,255),1)
-
 
 		qtimage = QImage(img, img.shape[1],img.shape[0], img.shape[1] * 3,QImage.Format_RGB888)
 		self.form_image.setPixmap(QPixmap(qtimage))
@@ -160,11 +155,18 @@ class HandWritingApp(QMainWindow, Ui_FormTemplate):
 			msg.exec_()
 
 	def start_detection(self):
-		fname = QFileDialog.getOpenFileName(self, 'Open folder',os.getcwd(),"Directory (*.dir)")
+		fname = str(QFileDialog.getExistingDirectory(self, "Select Directory"))
 
-		if fname[0] != "":
-			print(fname)
+		if fname != "":
 
+			image_names = glob.glob(fname + "/*.png")
+			image_names.extend(glob.glob(fname + "/*.jpg"))
+			image_names.extend(glob.glob(fname + "/*.jpeg"))
+
+			images = image_loader(image_names,self.locations)
+
+			results = run_model(image_names,images,self.existing_fields)
+			print(results.head())
 
 	def exit(self):
 		print("Exiting")

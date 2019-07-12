@@ -78,9 +78,12 @@ class Ui_FormTemplate(object):
         self.actionLoadTemplate.setObjectName("actionLoadTemplate")
         self.actionSaveTemplate = QtWidgets.QAction(FormTemplate)
         self.actionSaveTemplate.setObjectName("actionSaveTemplate")
+        self.actionStart = QtWidgets.QAction(FormTemplate)
+        self.actionStart.setObjectName("actionStart")
         self.menuFIle.addAction(self.actionNew)
         self.menuFIle.addAction(self.actionLoadImage)
         self.menuFIle.addAction(self.actionExit)
+        self.menuRun.addAction(self.actionStart)
         self.menuTemplate.addAction(self.actionLoadTemplate)
         self.menuTemplate.addAction(self.actionSaveTemplate)
         self.menubar.addAction(self.menuFIle.menuAction())
@@ -110,5 +113,6 @@ class Ui_FormTemplate(object):
         self.actionNew.setText(_translate("FormTemplate", "New"))
         self.actionLoadTemplate.setText(_translate("FormTemplate", "Load Template"))
         self.actionSaveTemplate.setText(_translate("FormTemplate", "Save Template"))
+        self.actionStart.setText(_translate("FormTemplate", "Start"))
 
 
